@@ -74,6 +74,8 @@ const Signup = () => {
       .catch((error) => {
         console.log(error);
         console.log("Error log");
+
+        // handle errors in proper way
       });
   };
 

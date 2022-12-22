@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { toast } from "react-toastify";
 import {
   Card,
   CardBody,
@@ -12,8 +14,58 @@ import {
   Button,
 } from "reactstrap";
 import Base from "../components/Base";
+import { loginUser } from "../services/User-service";
 
 const Login = () => {
+  const [loginDetail, setLoginDetail] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleChange = (event, field) => {
+    let actualValue = event.target.value;
+    setLoginDetail({
+      ...loginDetail,
+      [field]: actualValue,
+    });
+  };
+
+  const handleReset = () => {
+    setLoginDetail({
+      username: "",
+      password: "",
+    });
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    console.log(loginDetail);
+    // validation
+    if (
+      loginDetail.username.trim() == "" ||
+      loginDetail.password.trim() == ""
+    ) {
+      toast.error("Username or Password is required !!");
+      return;
+    }
+
+    // submit the data to server to generate token
+    loginUser(loginDetail)
+      .then((jwtTokenData) => {
+        console.log("user login");
+        console.log(jwtTokenData);
+        toast.success("Login Sucess");
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response.status == 400 || error.response.status == 404) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error("Something went wrong !!");
+        }
+      });
+  };
+
   return (
     <Base>
       <Container>
@@ -24,21 +76,36 @@ const Login = () => {
                 <h3>Login Here !!</h3>
               </CardHeader>
               <CardBody>
-                <Form>
+                <Form onSubmit={handleFormSubmit}>
                   {/* email field */}
                   <FormGroup>
                     <Label for="email">Enter Email</Label>
-                    <Input type="email" id="email"></Input>
+                    <Input
+                      type="email"
+                      id="email"
+                      value={loginDetail.username}
+                      onChange={(e) => handleChange(e, "username")}
+                    ></Input>
                   </FormGroup>
                   <FormGroup>
                     <Label for="password">Enter Password</Label>
-                    <Input type="password" id="password"></Input>
+                    <Input
+                      type="password"
+                      id="password"
+                      value={loginDetail.password}
+                      onChange={(e) => handleChange(e, "password")}
+                    ></Input>
                   </FormGroup>
                   <Container className="text-center">
                     <Button outline color="light">
                       Login
                     </Button>
-                    <Button className="ms-2" color="secondary" type="reset">
+                    <Button
+                      onClick={handleReset}
+                      className="ms-2"
+                      color="secondary"
+                      type="reset"
+                    >
                       Reset
                     </Button>
                   </Container>
