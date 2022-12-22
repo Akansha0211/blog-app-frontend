@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardBody,
@@ -10,9 +10,12 @@ import {
   Button,
   Row,
   Col,
+  Label,
 } from "reactstrap";
 import Base from "../components/Base";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+import { signUp } from "../services/User-service";
 
 const Signup = () => {
   const [data, setData] = useState({
@@ -44,17 +47,33 @@ const Signup = () => {
 
   // submit the form
   const submitForm = (event) => {
-    event.preventDeafult();
+    event.preventDefault();
+
     console.log(data);
+
     // data validate
-    // call server api for sending the data
+    // call server api -->  for sending the data : using axios library (install it) and
+    //sign up and show msg to user using react-toastify : for beautiful msg
+    // service url :
+    // BASE_URL : http://localhost:8080
+    //BASE_URL/api/v1/auth/register
+
+    signUp(data)
+      .then((resp) => {
+        console.log(resp);
+        console.log("success log");
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log("Error log");
+      });
   };
 
   return (
     <Base>
       <Container>
         <Row className="mt-4">
-          {JSON.stringify(data)}
+          {/* {JSON.stringify(data)} */}
 
           <Col sm={{ size: 6, offset: 3 }}>
             <Card color="dark" inverse>
@@ -67,7 +86,8 @@ const Signup = () => {
                 <Form onSubmit={submitForm}>
                   {/* Name field */}
                   <FormGroup>
-                    <label for="name">Enter Name</label>
+                    {/* <label for="name">Enter Name</label> */}
+                    <Label for="name">Enter Name</Label>
                     <Input
                       type="text"
                       placeholder="Enter Here..."
@@ -79,7 +99,8 @@ const Signup = () => {
 
                   {/* email field */}
                   <FormGroup>
-                    <label for="email">Enter Email</label>
+                    {/* <label for="email">Enter Email</label> */}
+                    <Label for="email">Enter Email</Label>
                     <Input
                       type="email"
                       placeholder="Enter Here..."
@@ -91,7 +112,8 @@ const Signup = () => {
 
                   {/* password field */}
                   <FormGroup>
-                    <label for="password">Enter Password</label>
+                    {/* <label for="password">Enter Password</label> */}
+                    <Label for="password">Enter Password</Label>
                     <Input
                       type="password"
                       placeholder="Enter Here..."
@@ -103,7 +125,8 @@ const Signup = () => {
 
                   {/* Text Area */}
                   <FormGroup>
-                    <label for="about">Enter About</label>
+                    {/* <label for="about">Enter About</label> */}
+                    <Label for="about">Enter About</Label>
                     <Input
                       type="textarea"
                       placeholder="Enter Here..."
