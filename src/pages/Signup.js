@@ -64,6 +64,12 @@ const Signup = () => {
         console.log(resp);
         console.log("success log");
         toast.success("User is registered successfully");
+        setData({
+          name: "",
+          email: "",
+          password: "",
+          about: "",
+        });
       })
       .catch((error) => {
         console.log(error);
