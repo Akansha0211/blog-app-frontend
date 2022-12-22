@@ -16,6 +16,7 @@ import Base from "../components/Base";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { signUp } from "../services/User-service";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [data, setData] = useState({
@@ -62,6 +63,7 @@ const Signup = () => {
       .then((resp) => {
         console.log(resp);
         console.log("success log");
+        toast.success("User is registered successfully");
       })
       .catch((error) => {
         console.log(error);
