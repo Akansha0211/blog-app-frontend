@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <BrowserRouter>
-      <ToastContainer />
+      <ToastContainer position="bottom-center" />
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
