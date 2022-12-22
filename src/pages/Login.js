@@ -15,6 +15,7 @@ import {
 } from "reactstrap";
 import Base from "../components/Base";
 import { loginUser } from "../services/User-service";
+import { doLogin } from "../auth";
 
 const Login = () => {
   const [loginDetail, setLoginDetail] = useState({
@@ -52,8 +53,12 @@ const Login = () => {
     // submit the data to server to generate token
     loginUser(loginDetail)
       .then((jwtTokenData) => {
-        console.log("user login");
         console.log(jwtTokenData);
+
+        // save the data to localstaorage
+        doLogin(jwtTokenData, () => {
+          console.log("Login detail is saved to localstorage");
+        });
         toast.success("Login Sucess");
       })
       .catch((error) => {
