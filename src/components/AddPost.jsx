@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Button,
   Card,
@@ -10,8 +10,11 @@ import {
 } from "reactstrap";
 
 import { loadAllCategories } from "../services/category-service";
+import JoditEditor from "jodit-react";
 
 const AddPost = () => {
+  const editor = useRef(null);
+  const [content, setContent] = useState("");
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -37,11 +40,16 @@ const AddPost = () => {
             </div>
             <div className="my-3">
               <Label for="content">Post Content</Label>
-              <Input
+              {/* <Input
                 type="textarea"
                 id="content"
                 placeholder="Enter here..."
                 style={{ height: "300px" }}
+              /> */}
+              <JoditEditor
+                ref={editor}
+                value={content}
+                onChange={(newContent) => setContent(newContent)}
               />
             </div>
 
@@ -70,6 +78,7 @@ const AddPost = () => {
               </Button>
             </Container>
           </Form>
+          {content}
         </CardBody>
       </Card>
     </div>
