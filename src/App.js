@@ -13,8 +13,9 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import UserDashBoard from "./pages/UserDashBoard";
+import UserDashBoard from "./pages/user-routes/UserDashBoard";
 import PrivateRoute from "./components/PrivateRoute";
+import ProfileInfo from "./pages/user-routes/ProfileInfo";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
 
         <Route path="/user" element={<PrivateRoute />}>
           <Route path="dashboard" element={<UserDashBoard />} />
+          <Route path="profile-info" element={<ProfileInfo />} />
         </Route>
       </Routes>
     </BrowserRouter>
