@@ -1,10 +1,11 @@
 import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
+import { isLoggedIn } from "../auth";
 
 const PrivateRoute = () => {
-  let loggedIn = true;
+  //let loggedIn = true;
 
-  if (loggedIn) {
+  if (isLoggedIn()) {
     return <Outlet />;
   } else {
     return <Navigate to={"/login"} />;
