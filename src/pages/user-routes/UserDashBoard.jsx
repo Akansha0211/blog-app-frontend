@@ -1,13 +1,11 @@
 import React from "react";
+import Base from "../../components/Base";
 
 const UserDashBoard = () => {
   return (
     <div>
+      <Base />
       <h1>Welcome to user dashboard</h1>
-      <p>
-        This user page, you hae created very good backend and fronetnd
-        application. work hard to create more even more advanced apps
-      </p>
     </div>
   );
 };
