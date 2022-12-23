@@ -16,8 +16,10 @@ import {
 import Base from "../components/Base";
 import { loginUser } from "../services/User-service";
 import { doLogin } from "../auth";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [loginDetail, setLoginDetail] = useState({
     username: "",
     password: "",
@@ -58,6 +60,9 @@ const Login = () => {
         // save the data to localstaorage
         doLogin(jwtTokenData, () => {
           console.log("Login detail is saved to localstorage");
+
+          // redirect to userdashbaord page
+          navigate("/user/dashboard");
         });
         toast.success("Login Sucess");
       })
