@@ -91,6 +91,12 @@ const CustomNavbar = () => {
                 <NavItem>
                   <NavLink onClick={logout}>Logout</NavLink>
                 </NavItem>
+
+                <NavItem>
+                  <NavLink tag={ReactLink} to="/user/dashboard">
+                    User
+                  </NavLink>
+                </NavItem>
                 {/* <NavItem>
                   <NavLink>{user.email}</NavLink>
                 </NavItem> */}
