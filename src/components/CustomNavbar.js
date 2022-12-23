@@ -14,16 +14,25 @@ import {
   NavbarText,
 } from "reactstrap";
 
-import { NavLink as ReactLink } from "react-router-dom";
-import { getCurrentUserDetail, isLoggedIn } from "../auth";
+import { NavLink as ReactLink, useNavigate } from "react-router-dom";
+import { doLogin, doLogout, getCurrentUserDetail, isLoggedIn } from "../auth";
 
 const CustomNavbar = () => {
+  let navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState(undefined);
+
+  const logout = () => {
+    doLogout(() => {
+      // logged out
+      setLogin(false);
+      navigate("/");
+    });
+  };
 
   useEffect(() => {
     setLogin(isLoggedIn());
@@ -75,7 +84,12 @@ const CustomNavbar = () => {
             {login && (
               <>
                 <NavItem>
-                  <NavLink>Logout</NavLink>
+                  <NavLink tag={ReactLink} to="/user/profile-info">
+                    Profile Info
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={logout}>Logout</NavLink>
                 </NavItem>
                 {/* <NavItem>
                   <NavLink>{user.email}</NavLink>
