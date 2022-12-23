@@ -1,11 +1,16 @@
 import React from "react";
+import { Container } from "reactstrap";
+import AddPost from "../../components/AddPost";
 import Base from "../../components/Base";
 
 const UserDashBoard = () => {
   return (
     <div>
-      <Base />
-      <h1>Welcome to user dashboard</h1>
+      <Base>
+        <Container>
+          <AddPost />
+        </Container>
+      </Base>
     </div>
   );
 };

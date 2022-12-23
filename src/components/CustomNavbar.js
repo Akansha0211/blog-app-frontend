@@ -49,7 +49,7 @@ const CustomNavbar = () => {
           <Nav className="me-auto" navbar>
             <NavItem>
               <NavLink tag={ReactLink} to="/">
-                Home
+                New Feed
               </NavLink>
             </NavItem>
             <NavItem>
