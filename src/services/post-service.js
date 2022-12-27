@@ -1,11 +1,11 @@
-import { myAxios } from "./Helper";
+import { privateAxios } from "./Helper";
 
 // create post function
 export const createPost = (postData) => {
   console.log(postData);
-  return myAxios
+  return privateAxios
     .post(
-      `/user/${postData.userId}/category/${postData.categoryId}/posts`,
+      `/api/user/${postData.userId}/category/${postData.categoryId}/posts`,
       postData
     )
     .then((response) => response.data);

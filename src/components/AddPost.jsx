@@ -83,7 +83,7 @@ const AddPost = () => {
     <div className="wrapper">
       <Card className="shadow border-0 mt-3 ">
         <CardBody>
-          {JSON.stringify(post)}
+          {/* {JSON.stringify(post)} */}
           <h3>What's going on in your mind</h3>
           <Form onSubmit={createPost}>
             <div className="my-3">
