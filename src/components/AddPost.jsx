@@ -11,11 +11,15 @@ import {
 
 import { loadAllCategories } from "../services/category-service";
 import JoditEditor from "jodit-react";
+import { createPost as doCreatePost } from "../services/post-service";
+import { getCurrentUserDetail } from "../auth/index";
 
 const AddPost = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
   const [categories, setCategories] = useState([]);
+
+  const [user, setUser] = useState(undefined);
 
   const [post, setPost] = useState({
     title: "",
@@ -24,6 +28,7 @@ const AddPost = () => {
   });
 
   useEffect(() => {
+    setUser(getCurrentUserDetail());
     loadAllCategories()
       .then((data) => {
         console.log(data);
@@ -62,6 +67,17 @@ const AddPost = () => {
     }
 
     // submit the form on server
+
+    post["userId"] = user.id;
+    doCreatePost(post)
+      .then((data) => {
+        alert("post created");
+        console.log(post);
+      })
+      .catch((error) => {
+        alert("error");
+        console.log(error);
+      });
   };
   return (
     <div className="wrapper">
