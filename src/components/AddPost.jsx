@@ -13,6 +13,7 @@ import { loadAllCategories } from "../services/category-service";
 import JoditEditor from "jodit-react";
 import { createPost as doCreatePost } from "../services/post-service";
 import { getCurrentUserDetail } from "../auth/index";
+import { toast } from "react-toastify";
 
 const AddPost = () => {
   const editor = useRef(null);
@@ -54,15 +55,15 @@ const AddPost = () => {
   const createPost = (event) => {
     event.preventDefault();
     if (post.title.trim() === "") {
-      alert("post title is required !!");
+      toast.error("post title is required !!");
       return;
     }
     if (post.content.trim() === "") {
-      alert("post content is required !!");
+      toast.error("post content is required !!");
       return;
     }
     if (post.categoryId === "") {
-      alert("select some category");
+      toast.error("select some category");
       return;
     }
 
@@ -71,12 +72,17 @@ const AddPost = () => {
     post["userId"] = user.id;
     doCreatePost(post)
       .then((data) => {
-        alert("post created");
-        console.log(post);
+        toast.success("Post created");
+        //console.log(post);
+        setPost({
+          title: "",
+          content: "",
+          categoryId: "",
+        });
       })
       .catch((error) => {
-        alert("error");
-        console.log(error);
+        toast.error("Post not created due to some error !!");
+        //console.log(error);
       });
   };
   return (
