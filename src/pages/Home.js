@@ -1,9 +1,12 @@
 import Base from "../components/Base";
+import NewFeed from "../components/NewFeed";
 
 const Home = () => {
   return (
     <div>
-      <Base />
+      <Base>
+        <NewFeed />
+      </Base>
     </div>
   );
 };
